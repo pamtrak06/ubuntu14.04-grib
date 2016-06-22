@@ -10,3 +10,4 @@ RUN cmake  ../grib_api-1.15.0-Source  -DCMAKE_INSTALL_PREFIX=/gribapi
 RUN make && ctest && make install
 RUN updatedb
 ENV PATH=$PATH:/gribapi
+VOLUME /gribapi
