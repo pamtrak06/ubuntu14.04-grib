@@ -20,6 +20,13 @@ RUN ./configure --prefix=/grib/gribapi --disable-jpeg
 #RUN make && make check && make install
 RUN make && make install
 
+# install libs4 cdo
+RUN mkdir -p /build/cdo/libs4 && mkdir -p /grib/cdo/libs4
+WORKDIR /build/cdo/libs4
+RUN wget https://code.zmaw.de/attachments/download/10301/libs4cdo-0.0.11.tar.gz
+RUN tar -xvf libs4cdo-0.0.11.tar.gz
+RUN cd libs4cdo*/ && make libs4cdo
+
 # install netcdf
 RUN mkdir /build/netcdf && mkdir /grib/netcdf
 WORKDIR /build/netcdf
@@ -29,7 +36,6 @@ RUN cd netcdf*/ && ./configure --enable-cxx-4 &&  autoreconf -if
 #RUN doxygen
 
 # install CDO
-RUN mkdir /build/cdo && mkdir /grib/cdo
 WORKDIR /build/cdo
 RUN wget https://code.zmaw.de/attachments/download/12692/cdo-current.tar.gz
 RUN tar -xvf cdo-current.tar.gz
